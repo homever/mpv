@@ -4,7 +4,7 @@
 -- alphabetically, and adds entries before and after the current file to
 -- the internal playlist. (It stops if the it would add an already existing
 -- playlist entry at the same position - this makes it "stable".)
--- Add at most 10 * 2 files when starting a file (before + after).
+-- Add at most 5000 * 2 files when starting a file (before + after).
 MAXENTRIES = 10
 
 function Set (t)
@@ -25,7 +25,7 @@ function add_files_at(index, files)
     local oldcount = mp.get_property_number("playlist-count", 1)
     for i = 1, #files do
         mp.commandv("loadfile", files[i], "append")
-        mp.commandv("playlist_move", oldcount + i - 1, index + i - 1)
+        mp.commandv("playlist-move", oldcount + i - 1, index + i - 1)
     end
 end
 
